@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Thank You</title>
+<style>
+  :root {
+    --bg1: #a8d5a8; --bg2: #3E6B4D; --bg3: #2E563F;
+    --card-bg: rgba(255,255,255,0.08);
+    --card-brd: rgba(255,255,255,0.18);
+    --text: #fff;
+  }
+  * , *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background: radial-gradient(1200px 800px at 50% -10%, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
+    display: grid; place-items: center;
+  }
+  .ty-card {
+    text-align: center;
+    padding: 36px 34px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    border: 1px solid var(--card-brd);
+    width: min(92vw, 620px);
+    animation: popIn 420ms ease;
+  }
+  @keyframes popIn {
+    0% { transform: translateY(10px) scale(0.98); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  /* Check icon (SVG) */
+  .check-wrap { --check-size: 120px; width: var(--check-size); height: var(--check-size); margin: 0 auto 14px; display: grid; place-items: center; }
+  .check-svg { width: 100%; height: 100%; display: block; }
+  .check-bg  { stroke: rgba(255,255,255,0.65); stroke-width: 8; fill: none; }
+  .check-path{
+    stroke: #fff; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; fill: none;
+    stroke-dasharray: 140; stroke-dashoffset: 140; animation: checkDraw 700ms 220ms ease-out forwards;
+  }
+  @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+
+  .ty-title { font-size: clamp(28px, 4.2vw, 42px); font-weight: 800; letter-spacing: .3px; margin: 12px 0 8px; }
+  .ty-sub   { font-size: clamp(15px, 2.2vw, 18px); opacity: .95; margin-bottom: 22px; }
+
+  .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    appearance: none; border: 0;
+    padding: 12px 20px; border-radius: 14px; font-size: 16px; cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, background .25s ease;
+  }
+  .btn-primary {
+    background: #ffffff; color: #2E563F; font-weight: 700;
+    box-shadow: 0 8px 18px rgba(0,0,0,.25);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.28); }
+  .btn-ghost   { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+  .btn-ghost:hover { background: rgba(255,255,255,.08); }
+
+  @media (max-width: 360px) {
+    .check-wrap { --check-size: 96px; }
+    .check-bg { stroke-width: 7; }
+    .check-path { stroke-width: 7; }
+  }
+</style>
+</head>
+<body>
+
+<main class="ty-card" role="main" aria-labelledby="ty-title">
+  <div class="check-wrap" aria-hidden="true">
+    <svg class="check-svg" viewBox="0 0 100 100" role="img" aria-label="Success">
+      <circle class="check-bg" cx="50" cy="50" r="40"></circle>
+      <path class="check-path" d="M28 52 L44 68 L74 36"></path>
+    </svg>
+  </div>
+  <h1 id="ty-title" class="ty-title">Thank you!</h1>
+  <p class="ty-sub">Your enquiry has been received. Our team will reach out shortly.</p>
+
+  <div class="actions">
+    <button id="backHomeBtn" class="btn btn-primary">Back to Home</button>
+  </div>
+</main>
+
+<script>
+  // Prevent navigating back to this page via Back button (optional)
+  history.replaceState(null, '', location.href);
+
+  // Read home URL from query (?home=...)
+  const params = new URLSearchParams(location.search);
+  const homeUrl = params.get('home') || '/';
+
+  function backToHomeAndClose() {
+    // If opener exists, just close this tab (user remains on original tab)
+    if (window.opener && !window.opener.closed) {
+      window.close();
+      // If blocked, fallback to navigation
+      setTimeout(() => { if (!document.hidden) location.href = homeUrl; }, 300);
+    } else {
+      // No opener (or blocked): navigate to home
+      location.href = homeUrl;
+    }
+  }
+
+  function justClose() {
+    window.close();
+    setTimeout(() => { if (!document.hidden) location.href = homeUrl; }, 300);
+  }
+
+  document.getElementById('backHomeBtn').addEventListener('click', backToHomeAndClose);
+  document.getElementById('closeBtn').addEventListener('click', justClose);
+
+  // Optional: Esc key = Back to Home
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') backToHomeAndClose(); });
+</script>
+
+</body>
+</html>
