@@ -1996,16 +1996,14 @@ function openTab(evt, tabId) {
 
 <style>
   /* Global box-sizing */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
 
   body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 200vh;
     background: #f0f5f0;
-    overflow-x: hidden; 
+    overflow-x: hidden;
   }
 
   /* Enquiry Bar - Mobile First */
@@ -2044,125 +2042,71 @@ function openTab(evt, tabId) {
 
   /* Modal overlay */
   .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
-    z-index: 2000;
-    padding: 10px;
+    z-index: 2000; padding: 10px;
   }
-
-  .modal.active {
-    opacity: 1;
-    pointer-events: all;
-  }
+  .modal.active { opacity: 1; pointer-events: all; }
 
   /* Modal content */
   .modal-content {
     background: #f7faf7;
     padding: 25px 20px;
     border-radius: 20px;
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-    position: relative;
+    width: 100%; max-width: 450px;
+    text-align: center; position: relative;
     box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     border: 2px solid #d2e8d2;
     animation: slideDown 0.4s ease;
   }
-
   @keyframes slideDown {
     0% { transform: translateY(-50px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
 
-  .modal-content h2 {
-    margin-bottom: 20px;
-    color: #2E563F;
-    font-size: 22px;
-  }
+  .modal-content h2 { margin-bottom: 20px; color: #2E563F; font-size: 22px; }
 
-  .modal-content input, 
-  .modal-content textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: 1.5px solid #a8d5a8;
-    border-radius: 12px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    background: #f0faf0;
+  .modal-content input, .modal-content textarea {
+    width: 100%; padding: 12px 15px; margin-bottom: 6px;
+    border: 1.5px solid #a8d5a8; border-radius: 12px; font-size: 16px;
+    outline: none; transition: all 0.2s ease; background: #f0faf0;
   }
-
-  .modal-content input:focus,
-  .modal-content textarea:focus {
-    border-color: #3E6B4D;
-    box-shadow: 0 0 12px rgba(62,107,77,0.4);
+  .modal-content input:focus, .modal-content textarea:focus {
+    border-color: #3E6B4D; box-shadow: 0 0 0 4px rgba(62,107,77,0.15);
     background: #e6f2e6;
   }
 
-  .modal-content button {
-    background: #3E6B4D;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 16px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto;
-    display: block;
-  }
+  /* Valid/invalid visuals */
+  .is-valid   { border-color: #2e7d32 !important; box-shadow: 0 0 0 4px rgba(46,125,50,0.12) !important; }
+  .is-invalid { border-color: #c62828 !important; box-shadow: 0 0 0 4px rgba(198,40,40,0.12) !important; }
 
-  .modal-content button:hover {
-    background: #2E563F;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  /* Inline error hints (hidden by default) */
+  .field-hint {
+    text-align: left;
+    margin: 6px 2px 12px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: #c62828;
+    display: none;
   }
+  .field-hint.show { display: block; }
+
+  .modal-content button {
+    background: #3E6B4D; color: white; padding: 12px 25px;
+    border: none; border-radius: 16px; font-size: 16px; cursor: pointer;
+    transition: all 0.2s ease; width: 100%; max-width: 200px; margin: 10px auto 0; display: block;
+  }
+  .modal-content button:hover { background: #2E563F; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+  .modal-content button:disabled { background: #9bb8a6; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .close-modal {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    font-size: 26px;
-    font-weight: bold;
-    color: #4a4a4a;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    position: absolute; top: 12px; right: 15px;
+    font-size: 26px; font-weight: bold; color: #4a4a4a; cursor: pointer; transition: color 0.3s ease;
   }
-
-  .close-modal:hover {
-    color: #2E563F;
-  }
-
-  @media (max-width: 400px) {
-    .modal-content {
-      padding: 20px 15px;
-    }
-    .modal-content h2 {
-      font-size: 20px;
-    }
-    .modal-content input,
-    .modal-content textarea {
-      font-size: 14px;
-      padding: 10px 12px;
-    }
-    .modal-content button {
-      font-size: 14px;
-      padding: 10px 20px;
-    }
-  }
+  .close-modal:hover { color: #2E563F; }
 </style>
 </head>
 <body>
@@ -2170,79 +2114,242 @@ function openTab(evt, tabId) {
 <div class="enquiry-bar" id="enquiryBar">ENQUIRE NOW</div>
 
 <!-- Modal -->
-<div class="modal" id="enquiryModal">
+<div class="modal" id="enquiryModal" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal-content">
-    <span class="close-modal" id="closeModal">&times;</span>
+    <span class="close-modal" id="closeModal" aria-label="Close">&times;</span>
     <h2>Enquire Now</h2>
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="email" id="email" placeholder="Your Email" required>
-    <input type="tel" id="phone" placeholder="Phone Number" required>
+
+    <!-- NAME: no validations, no hint, not required -->
+    <input type="text" id="name" placeholder="Your Name" autocomplete="name" />
+
+    <!-- EMAIL -->
+    <input type="email" id="email" placeholder="Your Email" autocomplete="email" />
+    <div id="emailHint" class="field-hint" aria-live="polite"></div>
+
+    <!-- PHONE -->
+    <input type="tel" id="phone" placeholder="Phone Number" inputmode="numeric" />
+    <div id="phoneHint" class="field-hint" aria-live="polite"></div>
+
+    <!-- MESSAGE -->
     <textarea id="message" rows="4" placeholder="Your Message"></textarea>
-    <button id="submitBtn">Submit</button>
+    <div id="messageHint" class="field-hint" aria-live="polite"></div>
+
+    <button id="submitBtn" disabled>Submit</button>
   </div>
 </div>
 
-
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const enquiryBar = document.getElementById('enquiryBar');
-    const modal = document.getElementById('enquiryModal');
-    const closeModal = document.getElementById('closeModal');
+/* ===== Minimal validators (only after the user types) ===== */
+const BAD_WORDS = ['abuse','idiot','stupid','nonsense','useless','dumb','shut up','hate','bloody'];
+const badWordsRegex = new RegExp('\\b(' + BAD_WORDS.map(w => w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&')).join('|') + ')\\b','i');
+const urlRegex = /(https?:\/\/|www\.)/i;
 
-    enquiryBar.addEventListener('click', () => modal.classList.add('active'));
-    closeModal.addEventListener('click', () => modal.classList.remove('active'));
-    window.addEventListener('click', (e) => {
-        if(e.target === modal) modal.classList.remove('active');
-    });
+function setFieldState(el, hintEl, msg) {
+  if (msg) {
+    el.classList.add('is-invalid'); el.classList.remove('is-valid');
+    hintEl.textContent = msg; hintEl.classList.add('show');
+  } else {
+    el.classList.remove('is-invalid'); el.classList.add('is-valid');
+    hintEl.textContent = ''; hintEl.classList.remove('show');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const enquiryBar = document.getElementById('enquiryBar');
+  const modal      = document.getElementById('enquiryModal');
+  const closeModal = document.getElementById('closeModal');
+
+  const nameEl     = document.getElementById('name');   // NO validation
+  const emailEl    = document.getElementById('email');
+  const phoneEl    = document.getElementById('phone');
+  const messageEl  = document.getElementById('message');
+
+  const emailHint  = document.getElementById('emailHint');
+  const phoneHint  = document.getElementById('phoneHint');
+  const messageHint= document.getElementById('messageHint');
+  const submitBtn  = document.getElementById('submitBtn');
+
+  const openModal = () => { modal.classList.add('active'); modal.setAttribute('aria-hidden','false'); };
+  const hideModal = () => { modal.classList.remove('active'); modal.setAttribute('aria-hidden','true'); };
+
+  enquiryBar.addEventListener('click', openModal);
+  closeModal.addEventListener('click', hideModal);
+  window.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+
+  // Track whether user has typed in each field (to avoid showing errors before typing)
+  const touched = { email: false, phone: false, message: false };
+
+  function validateEmail(showOnlyIfTouched = true) {
+    const v = emailEl.value.trim();
+    if (!v) { // empty -> no hint, neutral
+      if (!showOnlyIfTouched || touched.email) { setFieldState(emailEl, emailHint, ''); emailEl.classList.remove('is-valid','is-invalid'); }
+      return false;
+    }
+    const ok = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(v);
+    if (!ok) {
+      if (!showOnlyIfTouched || touched.email) setFieldState(emailEl, emailHint, 'Enter a valid email like name@example.com');
+      return false;
+    }
+    setFieldState(emailEl, emailHint, '');
+    return true;
+  }
+
+  function validatePhone(showOnlyIfTouched = true) {
+    const raw = phoneEl.value;
+    if (!raw) { // empty -> no hint, neutral
+      if (!showOnlyIfTouched || touched.phone) { setFieldState(phoneEl, phoneHint, ''); phoneEl.classList.remove('is-valid','is-invalid'); }
+      return false;
+    }
+    if (/\s/.test(raw)) {
+      if (!showOnlyIfTouched || touched.phone) setFieldState(phoneEl, phoneHint, 'No spaces allowed in phone number.');
+      return false;
+    }
+    const digits = raw.replace(/\D/g,'');
+    let d = digits;
+    if (d.length === 12 && d.startsWith('91')) d = d.slice(2); // optional 91
+    const ok = /^[6-9]\d{9}$/.test(d);
+    if (!ok) {
+      if (!showOnlyIfTouched || touched.phone) setFieldState(phoneEl, phoneHint, 'Enter a valid 10-digit Indian mobile (starts with 6–9). +91 optional.');
+      return false;
+    }
+    phoneEl.value = d; // normalize
+    setFieldState(phoneEl, phoneHint, '');
+    return true;
+  }
+
+  function validateMessage(showOnlyIfTouched = true) {
+    const v = messageEl.value.trim();
+    if (!v) { // empty -> no hint, neutral
+      if (!showOnlyIfTouched || touched.message) { setFieldState(messageEl, messageHint, ''); messageEl.classList.remove('is-valid','is-invalid'); }
+      return false;
+    }
+    if (urlRegex.test(v)) {
+      if (!showOnlyIfTouched || touched.message) setFieldState(messageEl, messageHint, 'Please avoid links in the message.');
+      return false;
+    }
+    if (badWordsRegex.test(v)) {
+      if (!showOnlyIfTouched || touched.message) setFieldState(messageEl, messageHint, 'Please keep the message polite and professional.');
+      return false;
+    }
+    // 1. Minimum length
+if (v.length < 10) {
+  if (!showOnlyIfTouched || touched.message)
+    setFieldState(messageEl, messageHint, 'Message should be at least 05 characters.');
+  return false;
+}
+
+// 2. Must include at least one vowel → prevents gibberish like "hvfkJN"
+if (!/[aeiouAEIOU]/.test(v)) {
+  if (!showOnlyIfTouched || touched.message)
+    setFieldState(messageEl, messageHint, 'Message looks incomplete. Please write a meaningful sentence.');
+  return false;
+}
+
+// 3. Prevent all-caps garbage (keep your old rule but improved)
+if (/^[A-Z]{6,}$/.test(v)) {
+  if (!showOnlyIfTouched || touched.message)
+    setFieldState(messageEl, messageHint, 'Please write a meaningful message.');
+  return false;
+}
+
+    setFieldState(messageEl, messageHint, '');
+    return true;
+  }
+
+  function updateSubmitState() {
+    const okEmail   = validateEmail(true);
+    const okPhone   = validatePhone(true);
+    const okMessage = validateMessage(true);
+    submitBtn.disabled = !(okEmail && okPhone && okMessage);
+  }
+
+  // Input only marks field as touched (NO validation yet)
+emailEl.addEventListener('input',  () => { touched.email = true; });
+phoneEl.addEventListener('input',  () => { touched.phone = true; });
+messageEl.addEventListener('input',() => { touched.message = true; });
+
+
+  // VALIDATE ON BLUR (when user leaves the field)
+emailEl.addEventListener('blur', () => {
+  touched.email = true;
+  validateEmail(false);
+  updateSubmitState();
 });
 
-// Send data to Google Sheets via Apps Script
-document.getElementById('submitBtn').addEventListener('click', function(e) {
+phoneEl.addEventListener('blur', () => {
+  touched.phone = true;
+  validatePhone(false);
+  updateSubmitState();
+});
+
+messageEl.addEventListener('blur', () => {
+  touched.message = true;
+  validateMessage(false);
+  updateSubmitState();
+});
+
+
+  // SUBMIT (pre-open tab -> fetch -> navigate)
+  submitBtn.addEventListener('click', function(e) {
     e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    if(!name || !email || !phone || !message){
-        alert("Please fill all fields");
-        return;
+    // final guard
+    touched.email = touched.phone = touched.message = true;
+    if (!validateEmail(false) | !validatePhone(false) | !validateMessage(false)) {
+      updateSubmitState();
+      return;
     }
 
-    const data = { name, email, phone, message };
+    // Pre-open tab to avoid blockers
+    let tyWin = window.open('', '_blank');
+    if (tyWin) {
+      tyWin.document.write('<!doctype html><title>Submitting…</title><p style="font-family:system-ui;padding:24px">Submitting your enquiry…</p>');
+    }
 
-    // Replace with your Apps Script Web App URL
+    const data = {
+      name: nameEl.value.trim(),     // no validation
+      email: emailEl.value.trim(),
+      phone: phoneEl.value.trim(),
+      message: messageEl.value.trim()
+    };
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOSFCYtxQi0UDRvjZ_EWsnFLS_33oTQxTvLahdDGpsanqF684p8pOuqwvQJc7KjxwS/exec";
 
-    fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(response => {
-        if(response.status === "success"){
-            alert("Enquiry submitted successfully!");
-            document.getElementById('enquiryModal').classList.remove('active');
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('phone').value = '';
-            document.getElementById('message').value = '';
+    fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
+      .then(res => res.json())
+      .then(response => {
+        if (response.status === "success") {
+          // close modal & reset visuals
+          modal.classList.remove('active'); modal.setAttribute('aria-hidden','true');
+          [emailEl, phoneEl, messageEl].forEach(el => el.classList.remove('is-valid','is-invalid'));
+          [emailHint, phoneHint, messageHint].forEach(h => { h.textContent=''; h.classList.remove('show'); });
+          submitBtn.disabled = true;
+
+          // CLEAR ALL INPUT VALUES
+nameEl.value = "";
+emailEl.value = "";
+phoneEl.value = "";
+messageEl.value = "";
+
+// Reset touched state
+touched.email = touched.phone = touched.message = false;
+
+
+          const homeUrl  = location.origin + location.pathname;
+          const thankUrl = `thank-you.html?home=${encodeURIComponent(homeUrl)}`;
+          if (tyWin) tyWin.location.href = thankUrl; else window.open(thankUrl, '_blank');
         } else {
-            alert("Failed to submit: " + response.message);
+          alert("Failed to submit: " + (response.message || "Unknown error"));
+          if (tyWin && !tyWin.closed) tyWin.close();
         }
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.error(err);
         alert("Error submitting the form.");
-    });
+        if (tyWin && !tyWin.closed) tyWin.close();
+      });
+  });
 });
-
-
-
 </script>
-
 <footer>
   <div class="footer-container">
     <!-- Left Column -->
@@ -2361,3 +2468,4 @@ footer {
 
 </body>
 </html>          
+
