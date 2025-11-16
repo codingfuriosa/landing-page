@@ -1437,33 +1437,34 @@
   <!-- Master Plan -->
   <div id="master-plan" class="tab-content active">
     <div class="plan-single">
-      <!-- Replace with your master plan image -->
-      <img src="images/20.avif" alt="Master Plan">
+      <img src="images/20.avif" alt="Master Plan" onclick="openPopup(this.src)">
     </div>
   </div>
 
   <!-- Floor Plans -->
   <div id="floor-plans" class="tab-content">
     <div class="plan-grid">
-      <!-- Add your 15 floor plan images -->
-      <img src="floor-plan1.jpg" alt="Floor Plan 1">
-      <img src="floor-plan2.jpg" alt="Floor Plan 2">
-      <img src="floor-plan3.jpg" alt="Floor Plan 3">
-      <img src="floor-plan4.jpg" alt="Floor Plan 4">
-      <img src="floor-plan5.jpg" alt="Floor Plan 5">
-      <img src="floor-plan6.jpg" alt="Floor Plan 6">
-      <img src="floor-plan7.jpg" alt="Floor Plan 7">
-      <img src="floor-plan8.jpg" alt="Floor Plan 8">
-      <img src="floor-plan9.jpg" alt="Floor Plan 9">
-      <img src="floor-plan10.jpg" alt="Floor Plan 10">
-      <img src="floor-plan11.jpg" alt="Floor Plan 11">
-      <img src="floor-plan12.jpg" alt="Floor Plan 12">
-      <img src="floor-plan13.jpg" alt="Floor Plan 13">
-      <img src="floor-plan14.jpg" alt="Floor Plan 14">
-      <img src="floor-plan15.jpg" alt="Floor Plan 15">
+      <img src="images/fp1.jpg" alt="Floor Plan 1" onclick="openPopup(this.src)">
+      <img src="images/fp2.jpg" alt="Floor Plan 2" onclick="openPopup(this.src)">
+      <img src="images/fp3.jpg" alt="Floor Plan 3" onclick="openPopup(this.src)">
+      <img src="images/fp4.jpg" alt="Floor Plan 4" onclick="openPopup(this.src)">
+      <img src="images/fp5.jpg" alt="Floor Plan 5" onclick="openPopup(this.src)">
+      <img src="images/fp6.jpg" alt="Floor Plan 6" onclick="openPopup(this.src)">
+      <img src="images/fp7.jpg" alt="Floor Plan 7" onclick="openPopup(this.src)">
+      <img src="images/fp8.jpg" alt="Floor Plan 8" onclick="openPopup(this.src)">
+      <img src="images/fp9.jpg" alt="Floor Plan 9" onclick="openPopup(this.src)">
+      <img src="images/fp10.jpg" alt="Floor Plan 10" onclick="openPopup(this.src)">
+      <img src="images/fp11.jpg" alt="Floor Plan 11" onclick="openPopup(this.src)">
+      <img src="images/fp12.jpg" alt="Floor Plan 12" onclick="openPopup(this.src)">
     </div>
   </div>
 </section>
+
+<!-- LIGHTBOX POPUP -->
+<div id="image-popup" class="image-popup">
+  <span class="close-popup" onclick="closePopup()">&times;</span>
+  <img id="popup-img" src="" alt="">
+</div>
 
 <style>
 /* Section Styling */
@@ -1474,17 +1475,17 @@
   text-align: center;
 }
 .plans-header h2 {
-  font-size: 3rem;
+  font-size: 2.2rem;
   color: black;
   margin-bottom: 10px;
 }
 .plans-header p {
-  font-size: 1.8rem;
+  font-size: 1.1rem;
   color: #666;
   margin-bottom: 40px;
 }
 
-/* Tab Buttons */
+/* Tabs */
 .tab-buttons {
   display: flex;
   justify-content: center;
@@ -1526,6 +1527,7 @@
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
   border: 2px solid #0F4D40;
+  cursor: pointer;
 }
 
 /* Floor Plans Grid */
@@ -1536,13 +1538,47 @@
 }
 .plan-grid img {
   width: 100%;
+  height: 250px; 
+  object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .plan-grid img:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(44, 122, 90, 0.2);
+}
+
+/* LIGHTBOX POPUP */
+.image-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+.image-popup img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+.close-popup {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
 }
 </style>
 
@@ -1557,63 +1593,81 @@ function openTab(evt, tabId) {
   document.getElementById(tabId).classList.add('active');
   evt.currentTarget.classList.add('active');
 }
+
+/* Lightbox Functions */
+function openPopup(imgSrc) {
+  document.getElementById("popup-img").src = imgSrc;
+  document.getElementById("image-popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("image-popup").style.display = "none";
+}
+
+// Close popup when clicking outside the image
+document.getElementById("image-popup").addEventListener("click", function(e) {
+  if (e.target === this) {
+    closePopup();
+  }
+});
 </script>
+
 
 
 <section class="gallery-section" id="gallery-section">
   <h2 class="gallery-title">Gallery</h2>
   <div class="gallery-grid">
     <div class="gallery-item">
-      <img src="images/img 1.jpg" alt="Gallery Image 1">
+      <img src="images/g1.jpg" alt="Gallery Image 1">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 2.jpg" alt="Gallery Image 2">
+      <img src="images/g2.jpg" alt="Gallery Image 2">
       <div class="gallery-overlay">
       <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 3.jpg" alt="Gallery Image 3">
+      <img src="images/g3.jpg" alt="Gallery Image 3">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 4.jpg" alt="Gallery Image 4">
+      <img src="images/g4.jpg" alt="Gallery Image 4">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 5.jpg" alt="Gallery Image 5">
+      <img src="images/g5.jpg" alt="Gallery Image 5">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 6.jpg" alt="Gallery Image 6">
+      <img src="images/g6.jpg" alt="Gallery Image 6">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 7.jpg" alt="Gallery Image 7">
+      <img src="images/g7.jpg" alt="Gallery Image 7">
       <div class="gallery-overlay">
        <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
     </div>
     
     <div class="gallery-item">
-      <img src="images/img 8.jpg" alt="Gallery Image 8">
+      <img src="images/g8.jpg" alt="Gallery Image 8">
       <div class="gallery-overlay">
         <img src="images/tree.png" alt="Tree" class="overlay-tree">
       </div>
@@ -2012,7 +2066,7 @@ function openTab(evt, tabId) {
     bottom: 0;
     width: 100%;
     height: 60px;
-    background: #3E6B4D;
+    background: #021A12;
     color: #fff;
     padding: 12px 15px;
     border-radius: 12px 12px 0 0;
@@ -2408,7 +2462,7 @@ touched.email = touched.phone = touched.message = false;
 
 <style>
 footer {
-  background-color: #f5f5f5;
+  background-color: #EDEDED;
   padding: 50px 0 0;
   font-size: 14px;
   line-height: 1.6;
@@ -2468,4 +2522,3 @@ footer {
 
 </body>
 </html>          
-
